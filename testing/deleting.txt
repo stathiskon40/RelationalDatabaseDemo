@@ -1,0 +1,4 @@
+Select * from customers ;
+Delete FROM customers where firstname = "david" ;
+Delete FROM customers where firstname = "David" ;
+Select * from customers ;

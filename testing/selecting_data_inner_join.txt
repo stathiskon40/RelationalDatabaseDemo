@@ -1,0 +1,3 @@
+SELECT * from Orders INNER JOIN Customers On Customers.CustomerID = Orders.CustomerID ;
+SELECT * from Orders INNER JOIN Customers On Customers.CustomerID = Orders.CustomerID where customers.phone == "555-0100" ;
+SELECT * from Orders INNER JOIN Customers On Customers.CustomerID = Orders.CustomerID where orders.totalamount > 750 AND customers.LastName == "Smith" ;

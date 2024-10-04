@@ -412,6 +412,7 @@ SQLParser::Query SQLParser::parse(const std::string& sql) {
             if (!(stream >> query.table)) {
                 throw std::runtime_error("No table specified in DROP TABLE statement.");
             }
+            query.table = to_upper(query.table);
         } else {
             throw std::runtime_error("Expected 'TABLE' keyword in DROP statement.");
         }
@@ -419,6 +420,8 @@ SQLParser::Query SQLParser::parse(const std::string& sql) {
     else {
         throw std::runtime_error("Unsupported SQL operation: " + query.operation);
     }
+
+
 
     return query;
 }

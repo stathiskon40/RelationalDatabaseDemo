@@ -3,3 +3,4 @@ SeLeCt * FRoM SHIPMeNTS ;
 SELECT * FROM SHIPMENTS WHERE ShipmentID > 502;
 SELECT * from products ;
 select * from products where instock >= 25 OR price <= 500;
+select * from products where instock >= 25 OR price == 500 ;

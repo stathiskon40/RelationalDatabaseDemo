@@ -1,5 +1,6 @@
 #include "../../include/database/Table.h"
 #include <stdexcept>
+#include <iostream>
 #include <algorithm>
 
 // Constructor
@@ -291,8 +292,11 @@ void Table::updateRecords(const std::map<std::string, std::string>& newValues, c
 // Delete records based on conditions
 void Table::deleteRecords(const std::vector<SQLParser::Condition>& conditions) {
     auto it = records.begin();
+    bool deleted = false;  
+
     while (it != records.end()) {
         if (evaluateConditions(*it, conditions)) {
+            deleted = true;
             // Update unique fields (if necessary)
             for (const auto& [fieldName, field] : fields) {
                 auto uniqueIt = uniqueFields.find(fieldName);
@@ -305,6 +309,10 @@ void Table::deleteRecords(const std::vector<SQLParser::Condition>& conditions) {
         } else {
             ++it;
         }
+    }
+
+    if (!deleted) {
+        throw std::invalid_argument("No records matched the delete conditions.");
     }
 }
 
@@ -340,9 +348,25 @@ bool Table::evaluateCondition(const std::map<std::string, std::string>& record, 
     const std::string& condValue = condition.value;
 
     if (condition.op == "=" || condition.op == "==") {
-        return value == condValue;
-    } else if (condition.op == "!=" || condition.op == "<>") {
-        return value != condValue;
+        try{
+            bool check_truth = std::stod(value) == std::stod(condValue);
+            return check_truth;
+        }catch(std::invalid_argument& e){
+            return value == condValue;
+        }
+        // Should not reach here
+        std::cout << "Should not reach here" << std::endl;
+        return 0;
+    }else if (condition.op == "!=" || condition.op == "<>") {
+        try{
+            bool check_truth = std::stod(value) != std::stod(condValue);
+            return check_truth;
+        }catch(std::invalid_argument& e){
+            return value != condValue;
+        }
+        std::cout << "Should not reach here" << std::endl;
+        // Should not reach here
+        return 0;
     } else if (condition.op == "<") {
         bool check_truth = std::stod(value) < std::stod(condValue);   
         return check_truth;
@@ -410,10 +434,13 @@ std::vector<std::map<std::string, std::string>> Table::performInnerJoin(
     for (const auto& leftRecord : leftRecords) {
         for (const auto& rightRecord : rightRecords) {
             if (evaluateJoinCondition(leftRecord, rightRecord, joinCondition)) {
-                // Combine the two records without re-prefixing leftRecord's field names
-
                 // Copy the leftRecord as is
-                std::map<std::string, std::string> combinedRecord = leftRecord;
+                std::map<std::string, std::string> combinedRecord;
+                
+                // Prefix right table fields
+                for (const auto& [key, value] : leftRecord) {
+                    combinedRecord[leftTableName + "." + key] = value;
+                }
 
                 // Prefix right table fields
                 for (const auto& [key, value] : rightRecord) {
