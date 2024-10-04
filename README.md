@@ -91,11 +91,11 @@ You will be presented with a prompt where you can enter SQL commands or CLI comm
 Enter the SQL command or CLI command: SELECT * FROM Customers;
 ```
 
--   **Note**: For this implementation, please ensure your SQL commands are entered on a single line.
+-   **Note**: For this implementation, please ensure your SQL commands are entered on a single line and **each "token" is separated with space** (parentheseis, commas, words).
 
 #### Executing From a File
 
--   To execute SQL commands from a file, use the i "filename" command.
+-   To execute SQL commands from a file, use the i "filename" command and **each "token" is separated with space** (parentheseis, commas, words).
 
 ```sql
 Enter the SQL command or CLI command: i "commands.sql"

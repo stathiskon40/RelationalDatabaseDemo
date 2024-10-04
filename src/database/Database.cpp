@@ -146,7 +146,7 @@ Field* Database::createField(const SQLParser::ColumnDefinition& colDef) {
         } else {
             throw std::runtime_error("Unsupported constraint: " + constraintStr);
         }
-        // Handle other constraints if needed
+
     }
 
     // Create and return the Field object
@@ -180,7 +180,6 @@ void Database::insertIntoTable(const SQLParser::Query& query) {
     }
     
     std::cout << std::endl;
-    // std::cout << "Record(s) inserted into table '" << query.table << "'." << std::endl;
 }
 
 void printQueryResults(const std::vector<std::map<std::string, std::string>>& results) {
