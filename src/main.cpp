@@ -9,8 +9,6 @@
 #include <fstream>
 #include <string>
 
-// ... (rest of your includes and code)
-
 void read_from_file(const std::string& filename, Database& db) {
     std::ifstream inputFile(filename);
 
