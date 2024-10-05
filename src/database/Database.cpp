@@ -298,9 +298,19 @@ bool evaluateCombinedConditions(
         // Compare with the condition value
         bool conditionResult = false;
         if (condition.op == "=" || condition.op == "==") {
-            conditionResult = (fieldValue == condition.value);
+            try{
+                conditionResult = std::stod(fieldValue) == std::stod(condition.value);
+            }catch(std::invalid_argument& e){
+                conditionResult = (fieldValue == condition.value);
+            }
+            // std::cout <<  "Should not reach here" << std::endl;
         } else if (condition.op == "!=" || condition.op == "<>") {
-            conditionResult = (fieldValue != condition.value);
+            try{
+                conditionResult = std::stod(fieldValue) != std::stod(condition.value);
+            }catch(std::invalid_argument& e){
+                conditionResult = (fieldValue != condition.value);
+            }
+            // std::cout <<  "Should not reach here" << std::endl;
         } else if (condition.op == "<") {
             conditionResult = (std::stod(fieldValue) < std::stod(condition.value));
         } else if (condition.op == ">") {
