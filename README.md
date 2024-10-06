@@ -112,7 +112,7 @@ Retrieve data from one or more tables.
 **Syntax**:
 
 ```sql
-SELECT column1, column2, ... FROM table_name [INNER JOIN other_table ON condition] [WHERE condition];
+SELECT column1 , column2 , ... FROM table_name [INNER JOIN other_table ON condition] [WHERE condition];
 ```
 
 ### INSERT
@@ -122,7 +122,7 @@ Add new records to a table.
 **Syntax**:
 
 ```sql
-INSERT INTO table_name ( column1 , column2, ... ) VALUES ( value1 , value2 , ... );
+INSERT INTO table_name ( column1 , column2 , ... ) VALUES ( value1 , value2 , ... );
 
 ```
 
@@ -165,19 +165,19 @@ SELECT columns FROM table1 INNER JOIN table2 ON table1.column_name = table2.colu
 ### Creating Tables
 
 ```sql
-CREATE TABLE Customers ( CustomerID INT PRIMARY_KEY , FirstName VARCHAR(100), LastName VARCHAR(100), Email VARCHAR(100), City VARCHAR(100) ) ;
+CREATE TABLE Customers ( CustomerID INT PRIMARY_KEY , FirstName VARCHAR(100) , LastName VARCHAR(100) , Email VARCHAR(100) , City VARCHAR(100) ) ;
 ```
 
 ### Inserting Data
 
 ```sql
-INSERT INTO Customers ( CustomerID , FirstName , LastName , Email , City ) VALUES ( 1 , 'Alice' , 'Smith' , 'alice@example.com' , 'New York' );
+INSERT INTO Customers ( CustomerID , FirstName , LastName , Email , City ) VALUES ( 1 , 'Alice' , 'Smith' , "alice@example.com" , 'New York' );
 ```
 
 ### Querying Data
 
 ```sql
-SELECT FirstName , LastName FROM Customers WHERE City = 'New York';
+SELECT FirstName , LastName FROM Customers WHERE City == 'New York';
 ```
 
 **With join:**
